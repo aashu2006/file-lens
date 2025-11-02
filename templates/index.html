@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File-Lens</title>
+    <style>
+        body {
+            background-color: #F5F5F5;
+            color: #000000;
+            font-family: "Times New Roman", serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0000EE;
+            text-decoration: underline;
+            margin-bottom: 10px;
+        }
+
+        form {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        input[type="text"] {
+            width: 60%;
+            padding: 4px;
+            border: 1px solid #000;
+            font-family: monospace;
+            background-color: #FFFFFF;
+        }
+
+        button {
+            background-color: #E0E0E0;
+            border: 1px solid #000;
+            padding: 4px 12px;
+            cursor: pointer;
+            font-family: "Times New Roman", serif;
+        }
+
+        button:hover {
+            background-color: #CCCCCC;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #000;
+            margin: 10px 0;
+        }
+
+        .info, .error {
+            text-align: center;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 3px 6px;
+            text-align: left;
+            vertical-align: top;
+            font-family: monospace;
+        }
+
+        th {
+            background-color: #DDDDDD;
+        }
+
+        caption {
+            caption-side: top;
+            text-align: left;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📁 File-Lens</h1>
+
+    <form method="POST">
+        <input type="text" name="path" 
+               placeholder="Enter folder path (e.g. C:\\Users\\Akshat Patil\\Desktop)" 
+               value="{{ path }}">
+        <button type="submit">🔍 Scan</button>
+    </form>
+
+    <hr>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if results %}
+        <div class="info success">
+            ✅ Total Files: {{ results.total_files }} |
+            💾 Total Size: {{ results.total_size_mb }} MB
+        </div>
+
+        {% if results.limit_reached %}
+            <p class="error">⚠️ Showing only first {{ results.files|length }} files (limit reached).</p>
+        {% endif %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>Size (KB)</th>
+                    <th>Modified</th>
+                    <th>Path</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for f in results.files %}
+                <tr>
+                    <td>{{ f.name }}</td>
+                    <td>{{ f.size_kb }}</td>
+                    <td>{{ f.modified }}</td>
+                    <td>{{ f.path }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <div class="footer">
+        <hr>
+        <p>© File-Lens | Author - Akshat Patil</p>
+    </div>
+
+</body>
+</html>
