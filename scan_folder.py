@@ -1,7 +1,6 @@
 import os
 from datetime import datetime
 
-# 🪟 Convert WSL → Windows path
 def wsl_to_windows_path(wsl_path: str) -> str:
     if wsl_path.startswith("/mnt/"):
         parts = wsl_path.split("/")
@@ -77,17 +76,13 @@ def scan_folder(path, max_depth=2, limit=5000):
         except (PermissionError, FileNotFoundError):
             pass
 
-    # ❌ Invalid path check
     if not os.path.exists(path):
         return {"error": f"Path not found: {path}"}
 
-    # 🚀 Start scanning
     _scan(path)
 
-    # Sort by size (descending)
     files_data.sort(key=lambda f: float(f["size_kb"]), reverse=True)
 
-    # Compute category percentages
     overview = []
     for cat, info in categories.items():
         percent = (info["size"] / total_size * 100) if total_size > 0 else 0

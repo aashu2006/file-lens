@@ -4,7 +4,6 @@ import os
 
 app = Flask(__name__)
 
-# Default Windows path
 DEFAULT_PATH = r"C:\Users\Akshat Patil\OneDrive\Desktop"
 
 
@@ -34,14 +33,13 @@ def index():
         if os.path.exists(wsl_path):
             try:
                 results = scan_folder(wsl_path)
-                # ✅ Keep the displayed path in Windows format
                 results["scanned_path"] = input_path
             except Exception as e:
                 error = f"⚠️ Error while scanning: {e}"
         else:
             error = f"❌ Folder not found: {input_path}"
 
-        path = input_path  # keep user input
+        path = input_path  
 
     return render_template("index.html", results=results, path=path, error=error)
 
