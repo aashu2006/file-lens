@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>File-Lens</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <h1>📁 File-Lens</h1>
+
+    <p class="tagline">
+        Pick a folder to see what is eating your disk.
+        Works on macOS, Windows and Linux &mdash; your files never leave your computer.
+    </p>
+
+    <div class="picker">
+        <!-- webkitdirectory is what turns this into a folder picker. It is
+             non-standard but supported by Chrome, Edge, Safari and Firefox. -->
+        <input type="file" id="folder-input" webkitdirectory directory multiple hidden />
+        <button type="button" id="pick-button">🔍 Choose Folder</button>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+    </div>
+
+    <hr>
+
+    <div id="error" class="error" hidden></div>
+
+    <main id="results" hidden>
+        <div class="summary">
+            <div class="stats">
+                <p><b>Folder Scanned:</b> <span id="stat-folder"></span></p>
+                <p><b>Total Files:</b> <span id="stat-files"></span></p>
+                <p><b>Total Size:</b> <span id="stat-size"></span></p>
+            </div>
+
+            <div id="chart-container">
+                <canvas id="fileChart"></canvas>
+            </div>
+        </div>
+
+        <div id="truncated-notice" class="notice" hidden></div>
+
+        <h3 class="section-heading">📂 Categories</h3>
+        <div class="categories" id="categories"></div>
+
+        <h3 class="section-heading">🏆 Top 10 Largest Files</h3>
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Size (KB)</th>
+                        <th>Modified</th>
+                        <th>Path</th>
+                    </tr>
+                </thead>
+                <tbody id="largest-files"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <div class="footer">
+        <hr>
+        <p>© File-Lens | Author - Akshat Patil</p>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+
+</html>

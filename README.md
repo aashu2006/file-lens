@@ -1,25 +1,29 @@
 # 📁 file-Lens
 
-**file-Lens** is a simple, vintage-style Flask app that scans any folder on your system and displays its contents — including **file size, modified date, and full Windows path** — right in your browser.
+**file-Lens** scans a folder and shows you what is eating your disk — a storage
+breakdown pie chart, per-category totals, and the largest files — in a
+deliberately vintage, 90s file-explorer interface.
 
-It’s fast, clean, and nostalgic, inspired by the old-school file explorer look of the 90s 🧠💾
+You pick a folder with the native OS folder picker. The browser reads only
+metadata — name, size, modified date, and the path relative to the folder you
+picked — and sends that to the server, which categorizes it and returns the
+numbers. File contents are never read and never uploaded, and the server has no
+filesystem access of its own.
+
+Runs on macOS, Windows and Linux.
 
 ---
 
-### 🚀 How to View / Run
+### 🗂 Project layout
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/aashu2006/file-lens.git
-   cd file-lens
-2. # Linux / macOS
-     source venv/bin/activate
-   # Windows
-     venv\Scripts\activate
-   
-3. pip install -r requirements.txt
-  
-4. python app.py
-  
-5. http://127.0.0.1:5000
+| File | Purpose |
+|---|---|
+| `server.js` | Express app — serves the page, exposes `POST /api/analyze` |
+| `analyzer.js` | Categorization and totals. Pure functions, no disk access |
+| `static/index.html` | Page shell |
+| `static/app.js` | Folder picker, metadata collection, rendering |
+| `static/style.css` | The vintage styling |
+| `package.json` | Node + Express, with zod for request validation |
+| `render.yaml` | Render deployment blueprint |
 
+---
