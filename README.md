@@ -18,12 +18,14 @@ Runs on macOS, Windows and Linux.
 
 | File | Purpose |
 |---|---|
-| `server.js` | Express app — serves the page, exposes `POST /api/analyze` |
+| `app.js` | Express app — routes and validation. Exported without listening |
 | `analyzer.js` | Categorization and totals. Pure functions, no disk access |
-| `static/index.html` | Page shell |
-| `static/app.js` | Folder picker, metadata collection, rendering |
-| `static/style.css` | The vintage styling |
+| `server.js` | Local entry point — starts `app.js` on a port |
+| `api/index.js` | Vercel entry point — wraps the same app as a function |
+| `public/index.html` | Page shell |
+| `public/app.js` | Folder picker, metadata collection, rendering |
+| `public/style.css` | The vintage styling |
 | `package.json` | Node + Express, with zod for request validation |
-| `render.yaml` | Render deployment blueprint |
+| `vercel.json` | Vercel routing |
 
 ---
