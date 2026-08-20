@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: file-lens
+    runtime: node
+    plan: free
+    buildCommand: npm ci
+    # Render injects $PORT and requires binding 0.0.0.0. That is safe here:
+    # the server never reads its own filesystem, it only crunches metadata
+    # the browser sends it.
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
